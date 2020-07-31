@@ -86,10 +86,12 @@
                     ],
                     "description": "An array with color (hex, rgba, rgb) strings which are used as colors, can be any length."
                 },
-                "indentRainbow.allowAligningToBrackets": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Do not show an error when the indent lines up with a bracket on a previous line."
+                "indentRainbow.allowAligningToBracketsLangs": {
+                    "type": "array",
+                    "default": [
+                        "cpp"
+                    ],
+                    "description": "Do not show an error when the indent lines up with a bracket on a previous line (use '*' to enable for all languages)."
                 }
             }
         }

@@ -25,8 +25,8 @@ Although you can just use it as it is there is the possibility to configure some
   // The delay in ms until the editor gets updated.
   "indentRainbow.updateDelay": 100 // 10 makes it super fast but may cost more resources,
 
-  // Do not show an error when the indent lines up with a bracket on a previous line.
-  "indentRainbow.allowAligningToBrackets": false
+  // Do not show an error when the indent lines up with a bracket on a previous line (use '*' to enable for all languages).
+  "indentRainbow.allowAligningToBracketsLangs": ["cpp"]
 ```
 
 *Notice: Defining both `includedLanguages` and `excludedLanguages` does not make much sense. Use one of both!*

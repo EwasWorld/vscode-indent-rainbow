@@ -12,6 +12,7 @@ export function activate(context: vscode.ExtensionContext) {
   let clearMe = false;
   let currentLanguageId = null;
   let skipAllErrors = false;
+  let allowAligningToBrackets = false;
 
   let activeEditor = vscode.window.activeTextEditor;
 
@@ -28,8 +29,6 @@ export function activate(context: vscode.ExtensionContext) {
   }) : null;
 
   const ignoreLinePatterns = vscode.workspace.getConfiguration('indentRainbow')['ignoreLinePatterns'] || [];
-
-  const allowAligningToBrackets = vscode.workspace.getConfiguration('indentRainbow')['allowAligningToBrackets'] || false;
 
   // Colors will cycle through, and can be any size that you want
   const colors = vscode.workspace.getConfiguration('indentRainbow')['colors'] || [
@@ -100,6 +99,13 @@ export function activate(context: vscode.ExtensionContext) {
     if(skiplang.length !== 0) {
       if(skiplang.indexOf('*') !== -1 || skiplang.indexOf(currentLanguageId) !== -1) {
         skipAllErrors = true;
+      }
+    }
+    var aligningLangs = vscode.workspace.getConfiguration('indentRainbow')['allowAligningToBracketsLangs'] || [];
+    allowAligningToBrackets = false;
+    if (aligningLangs.length !== 0) {
+      if (aligningLangs.indexOf('*') !== -1 || aligningLangs.indexOf(currentLanguageId) !== -1) {
+        allowAligningToBrackets = true;
       }
     }
   }
