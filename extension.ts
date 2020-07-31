@@ -52,10 +52,10 @@ export function activate(context: vscode.ExtensionContext) {
       var regParts = ignorePattern.match(/^\/(.*?)\/([gim]*)$/);
       if (regParts) {
         // the parsed pattern had delimiters and modifiers. handle them.
-        ignoreLinePatterns[index] = new RegExp(regParts[1], regParts[2]);
+        ignoreLinePatterns[index] = new RegExp("\\n" + regParts[1], regParts[2]);
       } else {
         // we got pattern string without delimiters
-        ignoreLinePatterns[index] = new RegExp(ignorePattern);
+        ignoreLinePatterns[index] = new RegExp("\\n" + ignorePattern);
       }
     }
   });
@@ -182,8 +182,7 @@ export function activate(context: vscode.ExtensionContext) {
        */
       ignoreLinePatterns.forEach(ignorePattern => {
         while (ignore = ignorePattern.exec(text)) {
-          const pos = activeEditor.document.positionAt(ignore.index);
-          const line = activeEditor.document.lineAt(pos).lineNumber;
+          const line = activeEditor.document.positionAt(ignore.index).line + 1;
           ignoreLines.push(line);
         }
       });
@@ -193,8 +192,7 @@ export function activate(context: vscode.ExtensionContext) {
     let defaultIndentCharRegExp = null;
 
     while (match = regEx.exec(text)) {
-      const pos = activeEditor.document.positionAt(match.index);
-      const line = activeEditor.document.lineAt(pos).lineNumber;
+      const line = activeEditor.document.positionAt(match.index).line;
       let skip = skipAllErrors || ignoreLines.indexOf(line) !== -1; // true if the lineNumber is in ignoreLines.
       var thematch = match[0];
       var ma = (match[0].replace(re, tabs)).length;
